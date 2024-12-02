@@ -27,10 +27,33 @@ async function create(animals){
     return {message}
 }
 
+async function update(id,animal){
+    const result = await db.query(`
+        update animal set Name=?, Species=?, Price=? where Id=?        
+        `,
+        [animal.Name, animal.Species, animal.Price, id])
+        let message="Error in updating animal"
 
+        if (result.affectedRows)
+            message="Animal updated succesfully"
+        return {message}
+}
+async function remove(id,animal){
+    const result = await db.query(`
+        delete from animal where Id=?        
+        `,
+        [id])
+
+        let message="Error in deleting animal"
+        if (result.affectedRows)
+            message="Animal deleted succesfully"
+        return {message}
+}
 
 module.exports = {
     getDatas,
-    create
+    create,
+    update,
+    remove
     
 }

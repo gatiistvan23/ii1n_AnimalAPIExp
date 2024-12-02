@@ -22,6 +22,26 @@ router.post("/",
         catch(err){
             next(err)
         }
-}
-)
+})
+
+router.put("/:id",
+    async function(req, res, next){
+        console.log("Post Body", req.body)
+        try{
+            res.json(await animals.update(req.params.id,req.body))
+        }
+        catch(err){
+            next(err)
+        }
+})
+router.delete("/:id",
+    async function(req, res, next){
+        console.log("Post Body", req.body)
+        try{
+            res.json(await animals.delete(req.params.id))
+        }
+        catch(err){
+            next(err)
+        }
+})
 module.exports = router
