@@ -5,10 +5,10 @@ const {config} = require("../config")
 // const {config} = require("../config")
 // üconfig.config.db
 
-async function query(sql) {
+async function query(sql, params) {
     const connection = await mysql.createConnection(config.db)
     try{
-        const [result] = await connection.execute(sql)
+        const [result] = await connection.execute(sql, params)
         return result
     }
     finally{

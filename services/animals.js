@@ -11,16 +11,23 @@ async function getDatas(){
 
 async function create(animals){
     console.log("Animal:", animal)
+    // const result = await db.query(
+    // `Insert Into animal (Name, Species, Price)
+    // Values ('${animal.Name}', ${animal.Species}', ${animal.Price});`
+    // )
+
     const result = await db.query(
-    `Insert Into animal (Name, Species, Price)
-    Values ('${animal.Name}', ${animal.Species}', ${animal.Price});`
-    )
+        `Insert Into animal (Name, Species, Price) values (?,?,?)`,
+        [animal.Name, animal.Species, animal.Price])
+    
     let message="Error in creating animal"
 
     if (result.affectedRows)
         message="Animal created succesfully"
     return {message}
 }
+
+
 
 module.exports = {
     getDatas,
