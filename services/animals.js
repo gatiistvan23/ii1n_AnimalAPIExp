@@ -38,9 +38,34 @@ async function update(id,animal){
             message="Animal updated succesfully"
         return {message}
 }
+async function patch(id,animal){
+    //const result = await db.query(`
+    //update animal set Name=?, Species=?, Price=? where Id=?`,            
+    // [animal.Name, animal.Species, animal.Price, id])
+
+        console.log("Mezőnevek")
+        let fields = Object.keys(animal).map(
+            (fiele)=> field+"=?"
+        ).join(", ")
+        let updateValues=console.log(Object.values(animal))
+        updateValues.push(id)
+        console.log("Fields:", fields)
+        console.log("updateValues:", updateValues)
+
+        const result = await db.query(`
+           update animal set ${fields} where Id=?`,            
+            updateValues)
+
+        let message="****************"
+        //let message="Error in updating animal"
+
+        //if (result.affectedRows)
+          //  message="Animal updated succesfully"
+        return {message}
+}
 async function remove(id,animal){
     const result = await db.query(`
-        delete from animal where Id=?        
+        delete from animal where Id=?  
         `,
         [id])
 
@@ -54,6 +79,7 @@ module.exports = {
     getDatas,
     create,
     update,
-    remove
+    remove, 
+    patch
     
 }
